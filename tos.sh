@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #Colors
-
 GREEN="\033[32m"
 YELLOW="\033[33m"
 PINK="\033[35m"
