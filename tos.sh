@@ -31,11 +31,11 @@ sleep 0.4
 printf "Author: $GREEN @sidious $NORMAL \n"
 sleep 0.4
 printf "Disclaimer: \n"
-printf "$NORMAL \n"
+printf "$YELLOW \n"
 printf "This script enables SSH over TOR...\n"
 printf "-- Onion address will be displayed below..\n"
-printf "\n"
 printf "$NORMAL \n"
+printf "\n"
 sleep 0.4
 
 
