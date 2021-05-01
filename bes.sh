@@ -40,7 +40,7 @@ sleep 0.4
 
 ##################################################################################################################
 
-#VAR
+
 DNE="not found!"
 
 #Distribution info
@@ -54,11 +54,11 @@ printf "\n"
 sleep 0.4
 
 #Networking
-IPS="ip addr"
+IP="ip addr"
 HOSTS="cat /etc/hosts"
 printf "$PINK------------------------------------------------------------------------------------------$NORMAL \n"
 printf "\n"
-printf "`$HOSTS || $DNE`\n`$IPS | grep inet || $DNE`"
+printf "`$HOSTS || $DNE`\n`$IP | grep inet || $DNE`"
 printf "\n"
 printf "\n"
 sleep 0.4
@@ -66,11 +66,19 @@ sleep 0.4
 #Development tools
 DEV[0]="gcc"
 DEV[1]="python"
-DEV[2]="python3"
-DEV[3]="g++"
+DEV[2]="python2"
+DEV[3]="python3"
 DEV[4]="perl"
 DEV[5]="java"
 DEV[6]="ruby"
+DEV[7]="base64"
+DEV[8]='c++'
+DEV[9]="git"
+DEV[10]="nodejs"
+DEV[11]="php"
+DEV[12]="g++"
+DEV[13]="gdb"
+
 printf "$PINK------------------------------------------------------------------------------------------$NORMAL \n"
 printf "\n"
 for i in "${DEV[@]}"
