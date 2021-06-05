@@ -6,7 +6,7 @@ PINK="\033[35m"
 NORMAL="\033[0;39m"
 
 # V1.0 SSH over TOR for ARCH based systems.
-# Work in progress..
+# Work in progress...
 #######################################################################################################
 
 printf "\n"
