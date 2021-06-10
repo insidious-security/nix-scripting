@@ -7,7 +7,7 @@ PINK="\033[35m"
 NORMAL="\033[0;39m"
 
 # V1.0 SSH over TOR for ARCH based systems.
-# Work in progress..
+# Work in progress.. DO NOT USE!!
 #######################################################################################################
 
 printf "\n"
@@ -39,10 +39,9 @@ printf "\n"
 sleep 0.4
 
 
-#Functions
 
 checkinst(){
-	if [ $(which tor 1>/dev/null) -e "/usr/bin/tor" ]; then
+	if [ $(which tor) -e "/usr/bin/tor" ]; then
 		printf "$GREEN Tor already present, skipping installation \n"
 	else
 		yes | pacman -S tor 1>/dev/null 2>/dev/null
@@ -73,7 +72,6 @@ servdeam(){
 }
 
 
-#Main
 checkinst
 if [ $? -eq 0 ]; then
 	writeconf
