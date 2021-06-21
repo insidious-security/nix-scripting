@@ -42,31 +42,30 @@ sleep 0.4
 
 checkinst(){
 	if [ $(which tor) -e "/usr/bin/tor" ]; then
-		printf "$GREEN Tor already present, skipping installation \n"
+		printf "$GREEN Tor is already installed, skipping installation. \n"
 	else
 		yes | pacman -S tor 1>/dev/null 2>/dev/null
 		if [ $(which tor) == "/usr/bin/tor" ]; then
-			INST0=1
-		else
-			INST0=2
+			INST=1		
 		fi
 	fi
 }
 			
 
 writeconf(){
-	if [ $INST0 -eq 1 ]; then
+	if [ $INST -eq 1 ]; then
 		echo -e "HiddenServiceDir /var/lib/tor/onion-ssh/\nHiddenServicePort 22 127.0.0.1:22" > /etc/tor/torrc
 		RESULT=1
 	else
-		printf "$RED Could not write to sshd_config \n"
+		printf "$RED Could not write to torrc file.. \n"
 		RESULT=2
 	fi
 }
 
 
 servdeam(){
-	systemctl deamon-reload && systemctl restart tor.service 1>/dev/null 2>/dev/null	
+	systemctl deamon-reload && systemctl restart tor.service 1>/dev/null 2>/dev/null
+	printf "\n"
 	printf "Wait 20 seconds for Tor to start and generate the hostname \n" && sleep 20
 	printf "You can now SSH to: " && cat /var/lib/tor/onion-ssh/hostname
 }
@@ -78,7 +77,8 @@ if [ $? -eq 0 ]; then
 	if [ $RESULT -eq 1 ]; then
 		servdeam
 	else
-		#Something here
+		printf "\n"
+		printf " Something went wrong, please check user permissions and network connectivity..exiting.! \n" && exit 1
 	fi
 fi
 
