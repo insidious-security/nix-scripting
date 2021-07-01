@@ -64,7 +64,7 @@ writeconf(){
 
 
 servdeam(){
-	systemctl deamon-reload && systemctl restart tor.service 1>/dev/null 2>/dev/null
+	systemctl deamon-reload && systemctl restart tor.service > /dev/null 2>&1
 	printf "\n"
 	printf "Wait 20 seconds for Tor to start and generate the hostname \n" && sleep 20
 	printf "You can now SSH to: " && cat /var/lib/tor/onion-ssh/hostname
