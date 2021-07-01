@@ -44,7 +44,7 @@ checkinst(){
 	if [ $(which tor) -e "/usr/bin/tor" ]; then
 		printf "$GREEN Tor is already installed, skipping installation. \n"
 	else
-		yes | pacman -S tor 1>/dev/null 2>/dev/null
+		yes | pacman -S tor > /dev/null 2>&1
 		if [ $(which tor) == "/usr/bin/tor" ]; then
 			INST=1		
 		fi
