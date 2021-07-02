@@ -3,7 +3,7 @@
 
 #----Banner (Server) Hardening script for Linux.
 printf "\n"
-cat << eof
+cat << "EOF"
  
     _____                              __  __               __           _            
    / ___/___  ______   _____  _____   / / / /___ __________/ /__  ____  (_)___  ____ _
@@ -11,10 +11,11 @@ cat << eof
   ___/ /  __/ /   | |/ /  __/ /     / __  / /_/ / /  / /_/ /  __/ / / / / / / / /_/ / 
  /____/\___/_/    |___/\___/_/     /_/ /_/\__,_/_/   \__,_/\___/_/ /_/_/_/ /_/\__, /  
                                                                              /____/   
-                                             Insidious-Security
+                          Insidious-Security
  
-eof
-sleep 1.4
+EOF
+
+sleep 0.8
 printf "Author: sidious \n"
 sleep 0.8
 printf " Code review : \n"
@@ -46,8 +47,7 @@ rootperm(){
 
 #----Backup and write to sshd_config 
 sshdcop(){
-    DATE="$(date +"[%Y-%m-%d %H:%M:%S]")"
-    cp /etc/ssh/sshd_config /etc/ssh/backup.$DATE.sshd_config
+    cp /etc/ssh/sshd_config /etc/ssh/backup.sshd_config
     cat <<EOT >/etc/ssh/sshd_config    
     Protocol 2
     IgnoreRhosts yes
@@ -65,14 +65,13 @@ sshdcop(){
     Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
     MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
 EOT
-    systemctl restart sshd.service > /dev/null 2>&1 
-    systemctl status sshd.service > /dev/null 2>&1 
+    systemctl restart sshd.service && systemctl status sshd.service > /dev/null 2>&1 
     
     if [ $? -eq 0 ]; then
-        msg "sshd_config file is hardened, the ssh deamon is running properly.."
+        msg "SSH is hardened. SSH deamon is running.."
         SSHD_CHK=1
     else
-        error "sshd_config file could not be hardened, please check user permissions.. exiting.." && exit 1
+        error "sshd_config file could not be hardened, check user permissions.. exiting.." && exit 1
     fi
 }
 
@@ -80,12 +79,12 @@ EOT
 #----Regen new ssh moduli
 regenmod(){
     ssh-keygen -G moduli-2048.candidates -b 2048
-    if [ $? -eq 0 ]; then printf "Stage 1 of generating moduli is completed $DATE \n"; else printf "Stage 1 failed.. Exiting.\n" && exit 1; fi
+    if [ $? -eq 0 ]; then msg "Stage 1 of generating moduli is completed"; else error "Stage 1 failed.. Exiting." && exit 1; fi
     ssh-keygen -T moduli-2048 -f moduli-2048.candidates
-    if [ $? -eq 0 ]; then print "Stage 2 of generating moduli is completed $DATE \n"; else printf "Stage 2 failed.. Exiting. \n" && exit 1; fi
+    if [ $? -eq 0 ]; then msg "Stage 2 of generating moduli is completed"; else error "Stage 2 failed.. Exiting." && exit 1; fi
     cp moduli-2048 /etc/ssh/moduli
-    if [ -f /etc/ssh/moduli ]; then printf "Generated moduli-2048 copied to /etc/ssh/moduli \n" && rm moduli-2048; fi
-    msg "new moduli candidates are now available.."
+    if [ -f /etc/ssh/moduli ]; then warning "Generated moduli-2048 copied to /etc/ssh/moduli" && rm moduli-2048; fi
+    msg "Secure moduli candidates are now available.."
 }
 
 
@@ -121,7 +120,7 @@ setperm(){
 #----If Statement to get the party started...
 if [ -f /etc/ssh/sshd_config ]; then
     rootperm && sshdcop
-    if [ $SSHD_CHK -eq 1 ]; then setperm ; else error "the SSHD service is not running properly." && exit 1; fi
+    if [ $SSHD_CHK -eq 1 ]; then setperm > /dev/null 2>&1; else warning "the SSHD service is not running properly." && exit 1; fi
     if [ $? -eq 0 ]; then regenmod; else error "permissions could not be managed by this script.." && exit 1; fi
 fi
 
