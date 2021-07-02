@@ -85,7 +85,7 @@ regenmod(){
     ssh-keygen -T moduli-2048 -f moduli-2048.candidates
     if [ $? -eq 0 ]; then msg "Stage 2 of generating moduli is completed"; else error "Stage 2 failed.. Exiting." && exit 1; fi
     cp moduli-2048 /etc/ssh/moduli
-    if [ -f /etc/ssh/moduli ]; then warning "Generated moduli-2048 copied to /etc/ssh/moduli" && rm moduli-2048; fi
+    if [ -f /etc/ssh/moduli ]; then msg "Generated moduli-2048 copied to /etc/ssh/moduli" && rm moduli-2048; fi
 	rm moduli-2048.candidates
     msg "Secure moduli candidates are now available.."
 }
