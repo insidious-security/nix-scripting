@@ -78,7 +78,7 @@ EOT
 
 #----Regen new ssh moduli
 regenmod(){
-	msg " Regenerating moduli candidates. This will take a few moments."
+	msg "Regenerating moduli candidates. This will take a few moments."
     ssh-keygen -G moduli-2048.candidates -b 2048
     if [ $? -eq 0 ]; then msg "Stage 1 of generating moduli is completed"; else error "Stage 1 failed.. Exiting." && exit 1; fi
     ssh-keygen -T moduli-2048 -f moduli-2048.candidates
