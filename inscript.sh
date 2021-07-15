@@ -40,6 +40,6 @@ vim
 lxappearance
 )
 
-for sw in "${pkgs[@]}"; do
-    install_pkgs $sw
+for i in "${pkgs[@]}"; do
+    install_pkgs $i
 done
