@@ -41,6 +41,7 @@ msg(){
 rootperm(){
   if [ "$(id -u)" -ne 0 ]; then
     error "you must be root"
+	exit 1
   fi
 }
 
