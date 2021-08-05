@@ -92,7 +92,7 @@ regenmod(){
 }
 
 
-#----Set secure permissions for important system and configuration files. Need to change this to have error handlig..
+#----Set secure permissions for important system and configuration files. Need to change this to have error handling..
 setperm(){
     chown root:root /etc/ssh/sshd_config
     chmod 600 /etc/ssh/sshd_config
