@@ -1,5 +1,6 @@
 #!/bin/bash
 
+printf "\n"
 sleep 0.8
 printf "Author: sidious \n"
 sleep 0.8
@@ -29,12 +30,11 @@ sshcheck(){
   dpkg-query -l  | grep -i openssh-server > /dev/null 2>&1 
   if [ $? -eq 0 ]; then
     msg "Installed."
-    printf "\n"
   else
     error "Not installed."
     printf "Do you want to install now? type (y/n): "
     read awn
-    if [ $awn == y ]; then msg "Installing Openssh-server."; apt install openssh-server --yes > /dev/null 2>&1; msg "Installed."; else error "Then you'll have no use for this script..";exit 1;fi
+    if [ $awn == y ]; then msg "Installing openSSH-server."; apt install openssh-server --yes > /dev/null 2>&1; msg "Installation successful."; else error "Then you'll have no use for this script..";exit 1;fi
   fi
 }
 
@@ -109,7 +109,10 @@ sshcheck
 sshdcop
 setperm > /dev/null 2>&1
 createuser
+NORMAL="\033[0;39m"
+printf "$NORMAL-----------------------------------------------\n"
 msg "Username: $USNA" 
 msg "Password: $DAT"
+printf "$NORMAL-----------------------------------------------\n"
 
 
