@@ -111,8 +111,8 @@ setperm > /dev/null 2>&1
 createuser
 NORMAL="\033[0;39m"
 printf "$NORMAL-----------------------------------------------\n"
-msg "Username: $USNA" 
-msg "Password: $DAT"
+msg "username: $USNA" 
+msg "password: $DAT"
 printf "$NORMAL-----------------------------------------------\n"
 
 
