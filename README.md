@@ -14,7 +14,7 @@ Some useful bash scripts for hardening or configuring unix based systems.
 # Clone this repository:
 $ git clone https://github.com/insidious-security/nix-scripting.git
 
-# Set the executable bit in for the required script(s)
+# Set the executable bit for the required script(s)
 chmod +x hardn.sh
 
 # Execute the script(s)
